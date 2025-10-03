@@ -2,7 +2,7 @@ mod window;
 
 use adw::prelude::*;
 
-const APP_ID: &str = "com.example.PotatoMD";
+const APP_ID: &str = "com.example.potato-md";
 
 fn main() -> Result<adw::glib::ExitCode, anyhow::Error> {
     adw::gio::resources_register_include!("potato-md.gresource")?;
@@ -16,8 +16,8 @@ fn main() -> Result<adw::glib::ExitCode, anyhow::Error> {
 }
 
 fn startup(_app: &adw::Application) {
-    let icon_theme = adw::gtk::IconTheme::for_display(&adw::gdk::Display::default().unwrap());
-    icon_theme.add_resource_path("/com/example/potato-md/icons");
+    adw::gtk::IconTheme::for_display(&adw::gdk::Display::default().unwrap())
+        .add_resource_path("/com/example/potato-md/icons");
 }
 
 fn build_ui(app: &adw::Application) {

@@ -2,5 +2,12 @@
 name = "potato-md"
 version = "0.1.0"
 edition = "2024"
+build = "build.rs"
 
 [dependencies]
+adw = { version = "0.8.0", package = "libadwaita" }
+anyhow = "1.0.100"
+gtk4-macros = { version = "0.10.1", features = ["blueprint"] }
+
+[build-dependencies]
+glib-build-tools = "0.21.0"

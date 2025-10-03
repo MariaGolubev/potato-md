@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+	<gresource prefix="/com/example/potato-md/">
+	  <file preprocess="xml-stripblanks">icons/scalable/actions/cat-sleeping-symbolic.svg</file>
+	  <file preprocess="xml-stripblanks">icons/scalable/actions/image-print-symbolic.svg</file>
+	</gresource>
+	<gresource prefix="/com/example/potato-md/">
+		<file preprocess="xml-stripblanks">ui/window.ui</file>
+	</gresource>
+</gresources>

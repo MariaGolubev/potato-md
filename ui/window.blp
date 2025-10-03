@@ -1,0 +1,19 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $PotatoWindow : Adw.ApplicationWindow {
+  default-width: 800;
+  default-height: 600;
+  title: _("Potato MD");
+
+  Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {}
+
+    content: Adw.StatusPage status_page {
+      title: _("Status Page");
+      description: _("This is a status page example.");
+      icon-name: "cat-sleeping-symbolic";
+    };
+  }
+}

@@ -1,13 +1,13 @@
-use adw::glib;
-use adw::glib::subclass::InitializingObject;
-use adw::gtk;
-use adw::subclass::prelude::*;
+use crate::widgets::{InlineBuffer, InlineView, TextAttr};
+use adw::{glib, glib::subclass::InitializingObject, gtk, subclass::prelude::*};
 
 #[derive(Default, gtk4_macros::CompositeTemplate)]
 #[template(resource = "/com/example/potato-md/ui/window.ui")]
 pub struct PotatoWindow {
     #[template_child]
-    status_page: TemplateChild<adw::StatusPage>,
+    title_inline_view: TemplateChild<InlineView>,
+    #[template_child]
+    content_inline_view: TemplateChild<InlineView>,
 }
 
 #[glib::object_subclass]
@@ -25,15 +25,35 @@ impl ObjectSubclass for PotatoWindow {
     }
 }
 
-impl ObjectImpl for PotatoWindow {}
+impl ObjectImpl for PotatoWindow {
+    fn constructed(&self) {
+        self.parent_constructed();
 
-// Trait shared by all widgets
+        let title_buffer = InlineBuffer::new();
+        let content_buffer = InlineBuffer::new();
+
+        self.title_inline_view.set_buffer(Some(&title_buffer));
+        self.content_inline_view.set_buffer(Some(&content_buffer));
+
+        glib::MainContext::default().spawn_local(glib_macros::clone!(
+            #[weak]
+            title_buffer,
+            #[weak]
+            content_buffer,
+            async move {
+                glib::timeout_future_seconds(1).await;
+                title_buffer.set_text("Welcome to Potato MD!");
+                glib::timeout_future_seconds(1).await;
+                content_buffer.set_text("This is the content area.");
+            }
+        ));
+    }
+}
+
 impl WidgetImpl for PotatoWindow {}
 
-// Trait shared by all windows
 impl WindowImpl for PotatoWindow {}
 
 impl ApplicationWindowImpl for PotatoWindow {}
 
-// Trait shared by all application windows
 impl AdwApplicationWindowImpl for PotatoWindow {}

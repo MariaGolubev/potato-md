@@ -5,9 +5,11 @@ edition = "2024"
 build = "build.rs"
 
 [dependencies]
-adw = { version = "0.8.0", package = "libadwaita" }
+adw = { version = "0.8.0", package = "libadwaita", features = ["gtk_v4_18"] }
 anyhow = "1.0.100"
+glib-macros = "0.21.2"
 gtk4-macros = { version = "0.10.1", features = ["blueprint"] }
+sourceview5 = "0.10.0"
 
 [build-dependencies]
 glib-build-tools = "0.21.0"
